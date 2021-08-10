@@ -1,14 +1,15 @@
 <meta charset='utf-8'>
 <script>
 
-    var min_angle = 15;
-    var max_angle = 19;
+    // интервалы, попав в один из которых пользователь поражает цель
+    var min_angle1 = 15, max_angle1 = 19,
+        min_angle2 = 34, max_angle2 = 43;
 
     var angle = parseInt(prompt('Введи угол атаки:'));
 
     if (isNaN(angle)) {
         alert('Нужно было ввести число');
-    } else if (min_angle <= angle && angle <= max_angle) {
+    } else if ((min_angle1 <= angle && angle <= max_angle1) || (min_angle2 <= angle && angle <= max_angle2)) {
         alert('Попал');
     } else {
         alert('Не попал');
