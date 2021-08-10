@@ -1,0 +1,17 @@
+<meta charset='utf-8'>
+<script>
+
+    var min_angle = 15;
+    var max_angle = 19;
+
+    var angle = parseInt(prompt('Введи угол атаки:'));
+
+    if (isNaN(angle)) {
+        alert('Нужно было ввести число');
+    } else if (min_angle <= angle && angle <= max_angle) {
+        alert('Попал');
+    } else {
+        alert('Не попал');
+    }
+
+</script>
