@@ -1,0 +1,33 @@
+<meta charset='utf-8'>
+<script>
+
+    // загадки
+    var question1 = 'Зимой и летом одним цветом';
+    var question2 = 'Кто его раздевает, тот слёзы проливает';
+
+    // правильные ответы
+    var answer1a = 'елка';
+    var answer1b = 'ёлка';
+    var answer2 = 'лук';
+
+    // счетчик правильных ответов
+    var correctAnswers = 0;
+
+    var user_answer1 = prompt(question1);
+    if (user_answer1 == answer1a || user_answer1 == answer1b) {
+        alert('Правильно, это ' + user_answer1);
+        correctAnswers++;
+    } else {
+        alert('Неправильно, это ' + answer1a);
+    }
+
+    var user_answer2 = prompt(question2);
+    if (user_answer2 == answer2) {
+        alert('Правильно, это ' + user_answer2);
+        correctAnswers++;
+    } else {
+        alert('Неправильно, это ' + answer2);
+    }
+
+    alert('Правильных ответов на загадки: ' + correctAnswers);
+</script>
