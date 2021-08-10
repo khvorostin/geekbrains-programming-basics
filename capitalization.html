@@ -1,0 +1,16 @@
+<meta charset='utf-8'>
+<script>
+
+    // расчет итоговой суммы вклада (с учетом ежегодной капиталлизации)
+
+    var summ = parseFloat(prompt('Сумма, которую вы вносите на счет в банке:')),
+        interest_rate = parseFloat(prompt('Процентная ставка (%, используйте точку как разделитель):')),
+        years = parseInt(prompt('На какой срок (лет):'));
+
+    for (var curr_year = 1; curr_year <= years; curr_year++) {
+        summ = summ + (summ / 100 * interest_rate);
+        summ = parseFloat(summ.toFixed(2)); // округляем до сотых
+        alert('Прошло лет: ' + curr_year + ', при ставке ' + interest_rate + ' на вашем счету ' + summ);
+    }
+
+</script>
