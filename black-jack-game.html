@@ -1,0 +1,124 @@
+<meta charset='utf-8'>
+<script>
+
+    // Игра Black Jack на JavaScript
+
+    // возвращает число от 0 до max
+    function getRandomInt(max) {
+        return Math.round(Math.random() * max);
+    }
+
+    // отдает случайную карту
+    function getCard() {
+        var cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+        var i = getRandomInt(cards.length - 1);
+        return cards[i];
+    }
+
+    function getSumm(cards) {
+        var summ = 0;
+
+        for (i = 0; i < cards.length; i++) {
+            if (cards[i] == 'A') {
+                continue;
+            } else if (cards[i] == 'J' || cards[i] == 'Q' || cards[i] == 'K') {
+                summ += 10;
+            } else {
+                summ += parseInt(cards[i]);
+            }
+        }
+
+        for (i = 0; i < cards.length; i++) {
+            if (cards[i] != 'A') {
+                continue;
+            } else if (summ <= 10) {
+                summ += 11;
+            } else {
+                summ += 1;
+            }
+        }
+
+        return summ;
+    }
+
+    var dealer = [getCard()];
+    var player = [getCard(), getCard()];
+    var game_over = false;
+
+    function getResult(dealer, player, final_count = false) {
+        var msg = '';
+        var dealer_summ = getSumm(dealer);
+        var player_summ = getSumm(player);
+
+        if (dealer_summ > 21 && player_summ > 21) {
+            msg = 'Перебор у вас и у дилера, все остались при своих ставках';
+            game_over = true;
+        } else if (dealer_summ == 21 && player_summ == 21) {
+            msg = 'У вас и у дилера 21 очко, все остались при своих ставках';
+            game_over = true;
+        } else if (player_summ > 21) {
+            msg = 'У вас перебор, вы проиграли';
+            game_over = true;
+        } else if (dealer_summ > 21) {
+            msg = 'У дилера перебор, вы выиграли';
+            game_over = true;
+        } else if (player_summ == 21) {
+            msg = 'У вас 21 очко, вы выиграли';
+            game_over = true;
+        } else if (dealer_summ == 21) {
+            msg = 'У дилера 21 очко, вы проиграли';
+            game_over = true;
+        }
+
+        if (final_count && !game_over) {
+            if (dealer_summ == player_summ) {
+                msg = 'Ничья. Все остались при своих ставках';
+            } else if (dealer_summ > player_summ) {
+                msg = 'Вы проиграли';
+            } else {
+                msg = 'Вы выиграли';
+            }
+        }
+
+        alert(msg + ' у дилера на руках: ' + dealer.join(' ') + ', а у вас: ' + player.join(' '));
+    }
+
+    var do_next = true;
+    var first_hand = true;
+
+    while (do_next) {
+
+        // меняем по
+        do_next = false;
+
+        if (first_hand) {
+            dealer = [getCard()];
+            player = [getCard(), getCard()];
+            if (getSumm(player) == 21 && getSumm(dealer) < 10) {
+                alert('У вас блэкджек, поздравляем!');
+                game_over = true;
+            }
+        } else {
+            if (getSumm(dealer) < 17) {
+                dealer.push(getCard());
+            }
+            player.push(getCard());
+        }
+
+        if (first_hand) {
+            dealer.push(getCard());
+            first_hand = false;
+        }
+
+        if (!game_over) {
+            getResult(dealer, player);
+        }
+
+        if (!game_over && prompt('Ещё карту? [1 - да]') == '1') {
+            do_next = true;
+        } else {
+            getResult(dealer, player, true);
+        }
+    }
+
+</script>
