@@ -1,7 +1,7 @@
 <meta charset='utf-8'>
 <script>
 
-    // рулетка, находим максимальное число раундов, в которых подряд выпадало красное
+    // рулетка: находим максимальное число раундов, в которых подряд выпадало красное
 
     // максимальная последовательность
     var max_continued_rounds = 0;
@@ -10,42 +10,35 @@
     var curr_contined_rounds = 0;
 
     // общее количество раундов
-    var rounds_to_play = 1000000;
+    var rounds_to_play = 2000000;
 
-    var generatedlist = [];
+    // рандомное число от 0 до 36
+    var random_int;
 
-    // возвращает число от 0 до max
-    function getColor(max) {
+    // цвет: 1 - красное, -1 - черное, 0 - зеро
+    var curr_color;
 
-        // цвет: 1 - красное, -1 - черное, 0 - зеро
-        var result;
+    for (var i = 0; i < rounds_to_play; i++) {
 
-        // рандомное число от 0 до 36
-        var random_int = Math.floor(Math.random() * 36);
+        random_int = Math.floor(Math.random() * 36);
 
         if (!random_int) {
-            result = 0; // зеро
+            curr_color = 0; // ноль - зеро
         } else if ((random_int % 2) == 0) {
-            result = 1; // красное
+            curr_color = 1; // четные числа - красное
         } else {
-            result = -1; // черное
+            curr_color = -1; // нечетные числа - черное
         }
 
-        return result;
-    }
-
-    for (var i = 0, last_round = rounds_to_play-1; i < rounds_to_play; i++) {
-        if (getColor() == 1) {
-            curr_contined_rounds++
-            if (last_round && max_continued_rounds < curr_contined_rounds) {
-                max_continued_rounds = curr_contined_rounds;
-            }
+        if (curr_color == 1) {
+            curr_contined_rounds++;
         } else {
-            if (max_continued_rounds < curr_contined_rounds) {
-                max_continued_rounds = curr_contined_rounds;
-            } 
-            curr_contined_rounds = 0
+            curr_contined_rounds = 0;
         }
+
+        if (max_continued_rounds < curr_contined_rounds) {
+            max_continued_rounds = curr_contined_rounds;
+        } 
     }
 
     alert('Максимальная последовательность: ' + max_continued_rounds + ' раундов');
